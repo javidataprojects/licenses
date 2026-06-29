@@ -1,6 +1,6 @@
 resources:
   jobs:
-    licenses-general
+    licenses_general:
       name: ${bundle.name}
       description: general etl for NYC licenses info
 
@@ -10,17 +10,18 @@ resources:
         pause_status: ${var.pause_status}
 
       parameters:
-        name: env
-        default: ${var.env}
+        - name: env
+          default: ${var.env}
 
       tasks:
         - task_key: 1_bronze_licenses
           notebook_task:
             notebook_path: ../../src/1_bronze/licenses_raw.ipynb
-          source: WOKSPACE  
-        - task_key_2: 2_silver_licenses
+            source: WORKSPACE
+
+        - task_key: 2_silver_licenses
           depends_on:
             - task_key: 1_bronze_licenses
-          notebook:
+          notebook_task:
             notebook_path: ../../src/2_silver/licenses.ipynb
-          source: WORKSPACE  
+            source: WORKSPACE
