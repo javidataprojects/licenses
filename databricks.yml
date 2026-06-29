@@ -1,0 +1,46 @@
+bundle:
+  name: licenses-data
+
+include:
+  resources/jobs/*.yml  
+
+
+variables:
+  env:
+    description: Environment where the application will be running
+  pause_status:
+    description: Pause status of the job
+
+
+targets:
+  dev:
+    default: true
+    mode: development
+    workspace:
+      profile: dev
+      root_path: /Workspace/Users/${workspace.current_user.userName}/Deployments/licenses/${bundle.name}/${bundle.target}
+    variables: 
+      env: dev
+      pause_status: PAUSED
+
+
+  main:
+    default: false
+    mode: production
+    workspace:
+      profile: dev
+      root_path: /Workspace/Users/${workspace.current_user.userName}/Deployments/licenses/${bundle.name}/${bundle.target}  
+    variables:
+      env: main
+      pause_status: PAUSED  
+
+
+
+
+
+
+
+
+
+
+

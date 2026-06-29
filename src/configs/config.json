@@ -1,0 +1,33 @@
+{
+  "env": {
+    "dev":{
+      "catalogs": {
+          "licenses": "dev_licenses"
+      },
+      "secrets":{
+        "api_token" : "BJog1R4hXjWz5nHFju8Z4fTcS"
+      }
+    },
+    "main":{
+      "catalogs": {
+        "licenses": "main_licenses"
+      },
+      "secrets":{
+        "api_token": "BJog1R4hXjWz5nHFju8Z4fTcS"
+      }
+    }
+  },
+
+  "sources":{
+    "licenses":{
+      "bronze":{
+        "orig_table":"",
+        "dest_table":"bronze_licenses.licenses_raw"
+      },
+      "silver":{
+        "orig_table":"bronze_licenses.licenses_raw",
+        "dest_table":"silver_licenses.licenses"
+      }
+    }
+  }
+}
