@@ -1,1 +1,26 @@
+resources:
+  jobs:
+    licenses-general
+      name: ${bundle.name}
+      description: general etl for NYC licenses info
 
+      schedule:
+        quartz_cron_expression: "0 0 0 * * ?"
+        timezone_id: Europe/Madrid
+        pause_status: ${var.pause_status}
+
+      parameters:
+        name: env
+        default: ${var.env}
+
+      tasks:
+        - task_key: 1_bronze_licenses
+          notebook_task:
+            notebook_path: ../../src/1_bronze/licenses_raw.ipynb
+          source: WOKSPACE  
+        - task_key_2: 2_silver_licenses
+          depends_on:
+            - task_key: 1_bronze_licenses
+          notebook:
+            notebook_path: ../../src/2_silver/licenses.ipynb
+          source: WORKSPACE  
